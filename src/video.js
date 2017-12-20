@@ -1,4 +1,4 @@
-export const initVideo = () => {
+export const initVideo = (debug) => {
     console.log('VIDEOOOOO');
 
     let wasmWorker = new Worker('wasm-worker.js');
@@ -93,13 +93,14 @@ export const initVideo = () => {
             targetCanvas.fpsArr = [];
         }
         if (e.data.features) {
-
-            targetCanvas.context.fillStyle = 'rgba(255,255,255,.5)';
-            targetCanvas.context.fillRect(0, 0, 90, 30)
-            targetCanvas.context.font = "normal 14pt Arial";
-            targetCanvas.context.fillStyle = targetCanvas.color;
-            targetCanvas.context.fillText(targetCanvas.context.fps + " fps", 5, 20);
-            targetCanvas.lastTime = targetCanvas.startTime;
+            if(debug) {
+                targetCanvas.context.fillStyle = 'rgba(255,255,255,.5)';
+                targetCanvas.context.fillRect(0, 0, 90, 30)
+                targetCanvas.context.font = "normal 14pt Arial";
+                targetCanvas.context.fillStyle = targetCanvas.color;
+                targetCanvas.context.fillText(targetCanvas.context.fps + " fps", 5, 20);
+                targetCanvas.lastTime = targetCanvas.startTime;
+            }
 
             for (let i = 0; i < e.data.features.length; i++) {
                 let rect = e.data.features[i];

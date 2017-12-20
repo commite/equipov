@@ -13,16 +13,24 @@ import { initVideo } from '~/video.js';
 
 export default {
   name: 'game',
-  props: ['game'],
+  props: {
+    game: Object,
+    debug: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
   },
   mounted() {
-    initVideo();
+    initVideo(this.debug);
   },
 }
 </script>
 
 <style scoped>
+.game {
+}
 .display-canvas {
   width: 100%;
 }
