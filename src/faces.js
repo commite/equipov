@@ -6,7 +6,13 @@ export const initVideo = (debug) => {
 
     let video = document.querySelector("#videoElement");
     let objType = 'faceDetect';
+
+    // character image which will be placed over the face
     let characterPic = document.getElementById('characterPic');
+    // last rectangle detected
+    let previousRect = null;
+    // pixels to consider that the face has moved
+    const threshold = 3;
 
     // check for getUserMedia support
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
@@ -101,7 +107,6 @@ export const initVideo = (debug) => {
             canvasContext.fps = Math.round((targetCanvas.fpsArr.reduce((a, b) => a + b) / targetCanvas.fpsArr.length) * 100) / 100;
             targetCanvas.fpsArr = [];
         }
-        console.log(e.data.features.length);
         if (e.data.features.length > 0) {
             if(debug) {
                 canvasContext.strokeStyle = targetCanvas.color;
@@ -113,13 +118,7 @@ export const initVideo = (debug) => {
                 canvasContext.fillText(targetCanvas.context.fps + " fps", 5, 20);
                 targetCanvas.lastTime = targetCanvas.startTime;
             }
-
-            let rect;
-
-            for (let i = 0; i < e.data.features.length; i++) {
-                rect = e.data.features[i];
-                drawCharacter(canvasContext, rect);
-            }
+            drawCharacter(canvasContext, e.data.features[0]);
         } else {
             hideCharacter();
         }
@@ -127,11 +126,28 @@ export const initVideo = (debug) => {
         canvasContext.restore();
     }
 
+    function moveCharacter(rect) {
+        // try to found a similar rect from the previous frame
+        // if found, not move the image
+        if (previousRect &&
+            Math.abs(rect.x - previousRect.x) < threshold &&
+            Math.abs(rect.y - previousRect.y) < threshold &&
+            Math.abs(rect.width - previousRect.width) < threshold &&
+            Math.abs(rect.height - previousRect.height) < threshold) {
+            return false;
+        }
+        // update previous rect, which will be compared with on following frames
+        previousRect = rect;
+        return true;
+    }
+
     function drawCharacter(canvasContext, rect) {
-        characterPic.style.left = `${rect.x * canvases.scale}px`;
-        characterPic.style.top = `${rect.y * canvases.scale}px`;
-        characterPic.style.width = `${rect.width * canvases.scale}px`;
-        characterPic.style.height = `${rect.height * canvases.scale}px`;
+        if (moveCharacter(rect)) {
+            characterPic.style.left = `${rect.x * canvases.scale}px`;
+            characterPic.style.top = `${rect.y * canvases.scale}px`;
+            characterPic.style.width = `${rect.width * canvases.scale}px`;
+            characterPic.style.height = `${rect.height * canvases.scale}px`;
+        }
         characterPic.style.display = 'block';
 
         // next alternative implementation produces a flickering image
