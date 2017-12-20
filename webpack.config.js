@@ -74,6 +74,10 @@ module.exports = {
     ]
   },
   plugins: [
+    new CopyWebpackPlugin([{
+      from: 'src/assets/',
+      to: 'assets/'
+    }]),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
@@ -81,7 +85,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin([{
       from: 'static/'
-    }])
+    }]),
   ],
   resolve: {
     alias: {
