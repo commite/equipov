@@ -1,3 +1,5 @@
+var debounce = require('debounce');
+
 export const initVideo = (debug) => {
     console.log('VIDEOOOOO');
 
@@ -80,41 +82,49 @@ export const initVideo = (debug) => {
     }
 
     function updateCanvas(e, targetCanvas) {
-        targetCanvas.context.drawImage(video, 0, 0, targetCanvas.canvas.width, targetCanvas.canvas.height);
-        targetCanvas.context.strokeStyle = targetCanvas.color;
-        targetCanvas.context.lineWidth = 2;
+        var secondaryCanvas = document.createElement("canvas"),
+        secondaryCtx = secondaryCanvas.getContext("2d");
+
+        secondaryCtx.drawImage(video, 0, 0, targetCanvas.canvas.width, targetCanvas.canvas.height);
+
         let fps = 1000 / (targetCanvas.startTime - targetCanvas.lastTime)
         if (fps) {
             targetCanvas.fpsArr.push(fps);
         }
 
-        if (canvases.wasm.fpsArr.length === 4 ) {
+        if (debug && canvases.wasm.fpsArr.length === 4 ) {
             targetCanvas.context.fps = Math.round((targetCanvas.fpsArr.reduce((a, b) => a + b) / targetCanvas.fpsArr.length) * 100) / 100;
             targetCanvas.fpsArr = [];
         }
         if (e.data.features) {
             if(debug) {
-                targetCanvas.context.fillStyle = 'rgba(255,255,255,.5)';
-                targetCanvas.context.fillRect(0, 0, 90, 30)
-                targetCanvas.context.font = "normal 14pt Arial";
-                targetCanvas.context.fillStyle = targetCanvas.color;
-                targetCanvas.context.fillText(targetCanvas.context.fps + " fps", 5, 20);
+                secondaryCtx.strokeStyle = targetCanvas.color;
+                secondaryCtx.lineWidth = 2;
+                secondaryCtx.context.fillStyle = 'rgba(255,255,255,.5)';
+                secondaryCtx.context.fillRect(0, 0, 90, 30)
+                secondaryCtx.context.font = "normal 14pt Arial";
+                secondaryCtx.context.fillStyle = targetCanvas.color;
+                secondaryCtx.context.fillText(targetCanvas.context.fps + " fps", 5, 20);
                 targetCanvas.lastTime = targetCanvas.startTime;
             }
             let img = document.getElementById('characterPic');
 
             for (let i = 0; i < e.data.features.length; i++) {
                 let rect = e.data.features[i];
-                targetCanvas.context.drawImage(
-                    img, rect.x * canvases.scale, rect.y * canvases.scale,
-                    rect.width * canvases.scale, rect.height * canvases.scale);
-                if (debug) {
-                    targetCanvas.context.strokeRect(
-                        rect.x * canvases.scale, rect.y * canvases.scale,
-                        rect.width * canvases.scale, rect.height * canvases.scale);
-                }
+                drawCharacter(secondaryCtx, rect, img)
             }
+        }
+        targetCanvas.context.drawImage(secondaryCanvas, 0, 0, targetCanvas.canvas.width, targetCanvas.canvas.height);
+    }
 
+    function drawCharacter(canvasContext, rect, img) {
+        canvasContext.drawImage(
+            img, rect.x * canvases.scale, rect.y * canvases.scale,
+            rect.width * canvases.scale, rect.height * canvases.scale);
+        if (debug) {
+            canvasContext.strokeRect(
+                rect.x * canvases.scale, rect.y * canvases.scale,
+                rect.width * canvases.scale, rect.height * canvases.scale);
         }
     }
 
