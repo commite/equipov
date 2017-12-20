@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'game',
   data () {
@@ -27,15 +29,28 @@ export default {
       players: [],
     };
   },
+  computed: {
+    ...mapState({
+      characters: state => state.game.characters,
+    }),
+  },
   methods: {
     addPlayerToGame(player) {
       this.players.push(player);
     },
+    calcCharacters() {
+      let availableCharacters = Object.keys(this.characters);
+      let idx;
+      this.players.forEach((player) => {
+        idx = Math.floor(Math.random()*availableCharacters.length)
+        player.character = this.characters[idx];
+        availableCharacters.splice(idx, 1);
+      });
+    },
     startGame() {
-      const characters = [];
+      this.calcCharacters();
       const game = {
-        'players': this.players,
-        'characters': characters,
+        'players': this.players
       }
 
       // TODO: Implement
