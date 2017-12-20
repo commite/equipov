@@ -57,7 +57,13 @@ export default {
       return this.game.players[this.currentPlayerIdx];
     },
     endGame() {
-      console.log("Se acabo");
+      this.$router.push({
+        name: 'Winners',
+        params: {
+            winners: this.winners,
+            players: this.game.players,
+        },
+      });
     },
     guessed() {
       this.turnStarted = false;

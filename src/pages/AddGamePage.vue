@@ -60,7 +60,7 @@ export default {
       let idx;
       this.candidatePlayers.forEach((player) => {
         idx = Math.floor(Math.random()*availableCharacters.length)
-        player.character = this.characters[idx];
+        player.character = this.characters[availableCharacters[idx]];
         availableCharacters.splice(idx, 1);
       });
     },

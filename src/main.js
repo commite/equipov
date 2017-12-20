@@ -9,7 +9,7 @@ import router from '~/router'
 import store from '~/store'
 import App from '~/App.vue'
 import { Game } from '~/components'
-import { GamePage, MenuPage, HomePage } from '~/pages'
+import { GamePage, MenuPage, HomePage, Winners } from '~/pages'
 
 Vue.config.productionTip = false
 
@@ -21,7 +21,8 @@ Object.values([
   Game,
   GamePage,
   MenuPage,
-  HomePage]).forEach(c => Vue.component(c.name, c));
+  HomePage,
+  Winners]).forEach(c => Vue.component(c.name, c));
 
 /* eslint-disable no-new */
 new Vue({
