@@ -1,12 +1,10 @@
 <template>
   <div class="game">
-    <h1>Game started</h1>
-		<div class="canvas-container">
-			<div class="holder" id="wasmDiv">
-				<canvas class="display-canvas" id="wasm"></canvas> <br>WebAssembly</div>
-			<canvas style="position:fixed; left:-1000px; visibility: hidden" id="dummy"></canvas>
-			<video style="display:none" width="320" height="240" autoplay id="videoElement"></video>
-		</div>
+    <div class="canvas-container">
+      <canvas class="display-canvas" id="wasm"></canvas>
+      <canvas style="position:fixed; left:-1000px; visibility: hidden" id="dummy"></canvas>
+      <video style="display:none" width="320" height="240" autoplay id="videoElement"></video>
+    </div>
   </div>
 </template>
 
@@ -25,4 +23,7 @@ export default {
 </script>
 
 <style scoped>
+.display-canvas {
+  width: 100%;
+}
 </style>
