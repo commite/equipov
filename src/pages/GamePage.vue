@@ -11,8 +11,10 @@
     </div>
     <div class="container" v-else>
       <div class="center">{{ getCurrentPlayer().questions || 0 }}</div>
-      <img :src="getCurrentPlayer().character.pic" :alt="getCurrentPlayer().character.name"/>
       <div class="center">{{ getCurrentPlayer().name }} turn</div>
+      <faces
+        :characterName="getCurrentPlayer().character.name"
+        :characterPic="getCurrentPlayer().character.pic"></faces>
       <div class="button-container">
         <ons-button @click="wrongQuestion">Wrong</ons-button>
         <ons-button @click="guessed">Guessed</ons-button>
@@ -25,7 +27,7 @@
 <script>
 
 export default {
-  name: 'game',
+  name: 'game-page',
   data () {
     return {
       currentPlayerIdx: 0,
