@@ -81,6 +81,8 @@ export const initVideo = (debug) => {
         return;
     }
 
+    let characterPic = document.getElementById('characterPic');
+
     function updateCanvas(e, targetCanvas) {
         var secondaryCanvas = document.createElement("canvas"),
         secondaryCtx = secondaryCanvas.getContext("2d");
@@ -107,11 +109,10 @@ export const initVideo = (debug) => {
                 secondaryCtx.context.fillText(targetCanvas.context.fps + " fps", 5, 20);
                 targetCanvas.lastTime = targetCanvas.startTime;
             }
-            let img = document.getElementById('characterPic');
 
             for (let i = 0; i < e.data.features.length; i++) {
                 let rect = e.data.features[i];
-                drawCharacter(secondaryCtx, rect, img)
+                drawCharacter(secondaryCtx, rect, characterPic)
             }
         }
         targetCanvas.context.drawImage(secondaryCanvas, 0, 0, targetCanvas.canvas.width, targetCanvas.canvas.height);
