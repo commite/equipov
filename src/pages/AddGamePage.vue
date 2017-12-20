@@ -15,6 +15,8 @@
           Pepe
         </v-ons-list-item>
       </v-ons-list>
+
+      <v-ons-button @click="startGame">Start game</v-ons-button>
     </div>
   </v-ons-page>
 </template>

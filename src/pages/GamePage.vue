@@ -7,6 +7,7 @@
       <div class="center">Game started</div>
     </v-ons-toolbar>
     <div class="container">
+      <game :game="game"></game>
     </div>
   </v-ons-page>
 </template>
@@ -14,7 +15,7 @@
 <script>
 
 export default {
-  name: 'game',
+  name: 'game-page',
   data () {
     return {
     };
