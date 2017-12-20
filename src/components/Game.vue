@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { initVideo } from '~/video.js';
+import { initVideo } from '~/faces.js';
 
 export default {
   name: 'game',
