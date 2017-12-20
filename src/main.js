@@ -5,7 +5,6 @@ import Vue from 'vue'
 import VueOnsen from 'vue-onsenui/esm'
 import * as VOns from '~/ons-components.js';
 
-import loader from '~/lib-loader'
 import router from '~/router'
 import store from '~/store'
 import App from '~/App.vue'
