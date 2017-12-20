@@ -101,10 +101,18 @@ export const initVideo = (debug) => {
                 targetCanvas.context.fillText(targetCanvas.context.fps + " fps", 5, 20);
                 targetCanvas.lastTime = targetCanvas.startTime;
             }
+            let img = document.getElementById('characterPic');
 
             for (let i = 0; i < e.data.features.length; i++) {
                 let rect = e.data.features[i];
-                targetCanvas.context.strokeRect(rect.x * canvases.scale, rect.y * canvases.scale, rect.width * canvases.scale, rect.height * canvases.scale);
+                targetCanvas.context.drawImage(
+                    img, rect.x * canvases.scale, rect.y * canvases.scale,
+                    rect.width * canvases.scale, rect.height * canvases.scale);
+                if (debug) {
+                    targetCanvas.context.strokeRect(
+                        rect.x * canvases.scale, rect.y * canvases.scale,
+                        rect.width * canvases.scale, rect.height * canvases.scale);
+                }
             }
 
         }

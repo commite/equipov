@@ -11,9 +11,10 @@
     </div>
     <div class="container" v-else>
       <div class="center">{{ currentPlayer.questions || 0 }}</div>
-      <img :src="currentPlayer.character.pic" :alt="currentPlayer.character.name"/>
       <div class="center">{{ currentPlayer.name }} turn</div>
-      <game :game="game"></game>
+      <faces
+        :characterName="currentPlayer.character.name"
+        :characterPic="currentPlayer.character.pic"></faces>
       <div class="button-container">
         <ons-button @click="wrongQuestion()">Wrong</ons-button>
         <ons-button @click="guessed()">Guessed</ons-button>

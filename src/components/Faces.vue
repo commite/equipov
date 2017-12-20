@@ -1,5 +1,9 @@
 <template>
   <div class="game">
+    <img
+      id="characterPic"
+      style="display: none"
+      :src="characterPic" />
     <div class="canvas-container">
       <canvas class="display-canvas" id="wasm"></canvas>
       <canvas style="position:fixed; left:-1000px; visibility: hidden" id="dummy"></canvas>
@@ -12,9 +16,10 @@
 import { initVideo } from '~/faces.js';
 
 export default {
-  name: 'game',
+  name: 'faces',
   props: {
-    game: Object,
+    characterPic: String,
+    characterName: String,
     debug: {
       type: Boolean,
       default: false,
