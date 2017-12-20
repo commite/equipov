@@ -6,6 +6,7 @@ export const initVideo = (debug) => {
 
     let video = document.querySelector("#videoElement");
     let objType = 'faceDetect';
+    let characterPic = document.getElementById('characterPic');
 
     // check for getUserMedia support
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
@@ -57,11 +58,13 @@ export const initVideo = (debug) => {
     }
 
     function startWorker(imageData, command, type) {
-        if (type == 'wasm')
+        if (type === 'wasm')
             canvases.dummy.context.drawImage(wasm, 0, 0, imageData.width, imageData.height, 0, 0, Math.round(imageData.width/ canvases.scale), Math.round(imageData.height/canvases.scale));
         let message = {
             cmd: command,
-            img: canvases.dummy.context.getImageData(0, 0, Math.round(imageData.width / canvases.scale), Math.round(imageData.height/canvases.scale))
+            img: canvases.dummy.context.getImageData(
+                0, 0, Math.round(imageData.width / canvases.scale),
+                Math.round(imageData.height / canvases.scale))
         };
         if (type == 'wasm') wasmWorker.postMessage(message);
     }
@@ -80,16 +83,14 @@ export const initVideo = (debug) => {
         return;
     }
 
-    let characterPic = document.getElementById('characterPic');
-
-    let latestFeatures = [];
-
     function updateCanvas(e, targetCanvas) {
         var canvasContext = targetCanvas.context;
 
         canvasContext.save(); // freeze draw
 
         canvasContext.drawImage(video, 0, 0, targetCanvas.canvas.width, targetCanvas.canvas.height);
+        //canvasImageData = canvasContext.getImageData(
+        //    0, 0, targetCanvas.width, targetCanvas.height);
 
         let fps = 1000 / (targetCanvas.startTime - targetCanvas.lastTime)
         if (fps) {
@@ -100,10 +101,8 @@ export const initVideo = (debug) => {
             canvasContext.fps = Math.round((targetCanvas.fpsArr.reduce((a, b) => a + b) / targetCanvas.fpsArr.length) * 100) / 100;
             targetCanvas.fpsArr = [];
         }
-        if (e.data.features && e.data.features.length > 0) {
-            latestFeatures = e.data.features.slice();
-        }
-        if (latestFeatures) {
+        console.log(e.data.features.length);
+        if (e.data.features.length > 0) {
             if(debug) {
                 canvasContext.strokeStyle = targetCanvas.color;
                 canvasContext.lineWidth = 2;
@@ -115,24 +114,39 @@ export const initVideo = (debug) => {
                 targetCanvas.lastTime = targetCanvas.startTime;
             }
 
-            for (let i = 0; i < latestFeatures.length; i++) {
-                let rect = latestFeatures[i];
-                drawCharacter(canvasContext, rect, characterPic)
+            let rect;
+
+            for (let i = 0; i < e.data.features.length; i++) {
+                rect = e.data.features[i];
+                drawCharacter(canvasContext, rect);
             }
+        } else {
+            hideCharacter();
         }
 
         canvasContext.restore();
     }
 
-    function drawCharacter(canvasContext, rect, img) {
-        canvasContext.drawImage(
-            img, rect.x * canvases.scale, rect.y * canvases.scale,
-            rect.width * canvases.scale, rect.height * canvases.scale);
+    function drawCharacter(canvasContext, rect) {
+        characterPic.style.left = `${rect.x * canvases.scale}px`;
+        characterPic.style.top = `${rect.y * canvases.scale}px`;
+        characterPic.style.width = `${rect.width * canvases.scale}px`;
+        characterPic.style.height = `${rect.height * canvases.scale}px`;
+        characterPic.style.display = 'block';
+
+        // next alternative implementation produces a flickering image
+        // canvasContext.drawImage(
+        //     characterPic, rect.x * canvases.scale, rect.y * canvases.scale,
+        //     rect.width * canvases.scale, rect.height * canvases.scale);
         if (debug) {
             canvasContext.strokeRect(
                 rect.x * canvases.scale, rect.y * canvases.scale,
                 rect.width * canvases.scale, rect.height * canvases.scale);
         }
+    }
+
+    function hideCharacter() {
+        characterPic.style.display = 'none';
     }
 
     wasmWorker.onmessage = function (e) {
@@ -143,7 +157,7 @@ export const initVideo = (debug) => {
             updateCanvas(e, canvases.wasm);
             requestAnimationFrame((wasmTime) => {
                 canvases.wasm.startTime = wasmTime;
-                startWorker(canvases.wasm.context.getImageData(0, 0, canvases.wasm.canvas.width, canvases.wasm.canvas.height), objType, 'wasm')
+                startWorker(canvases.wasm.context.getImageData(0, 0, canvases.wasm.canvas.width, canvases.wasm.canvas.height), objType, 'wasm');
             })
         }
     }
