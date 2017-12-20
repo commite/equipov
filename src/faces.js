@@ -1,7 +1,6 @@
 var debounce = require('debounce');
 
 export const initVideo = (debug) => {
-    console.log('VIDEOOOOO');
 
     let wasmWorker = new Worker('wasm-worker.js');
 
@@ -83,11 +82,14 @@ export const initVideo = (debug) => {
 
     let characterPic = document.getElementById('characterPic');
 
-    function updateCanvas(e, targetCanvas) {
-        var secondaryCanvas = document.createElement("canvas"),
-        secondaryCtx = secondaryCanvas.getContext("2d");
+    let latestFeatures = [];
 
-        secondaryCtx.drawImage(video, 0, 0, targetCanvas.canvas.width, targetCanvas.canvas.height);
+    function updateCanvas(e, targetCanvas) {
+        var canvasContext = targetCanvas.context;
+
+        canvasContext.save(); // freeze draw
+
+        canvasContext.drawImage(video, 0, 0, targetCanvas.canvas.width, targetCanvas.canvas.height);
 
         let fps = 1000 / (targetCanvas.startTime - targetCanvas.lastTime)
         if (fps) {
@@ -95,27 +97,31 @@ export const initVideo = (debug) => {
         }
 
         if (debug && canvases.wasm.fpsArr.length === 4 ) {
-            targetCanvas.context.fps = Math.round((targetCanvas.fpsArr.reduce((a, b) => a + b) / targetCanvas.fpsArr.length) * 100) / 100;
+            canvasContext.fps = Math.round((targetCanvas.fpsArr.reduce((a, b) => a + b) / targetCanvas.fpsArr.length) * 100) / 100;
             targetCanvas.fpsArr = [];
         }
-        if (e.data.features) {
+        if (e.data.features && e.data.features.length > 0) {
+            latestFeatures = e.data.features.slice();
+        }
+        if (latestFeatures) {
             if(debug) {
-                secondaryCtx.strokeStyle = targetCanvas.color;
-                secondaryCtx.lineWidth = 2;
-                secondaryCtx.context.fillStyle = 'rgba(255,255,255,.5)';
-                secondaryCtx.context.fillRect(0, 0, 90, 30)
-                secondaryCtx.context.font = "normal 14pt Arial";
-                secondaryCtx.context.fillStyle = targetCanvas.color;
-                secondaryCtx.context.fillText(targetCanvas.context.fps + " fps", 5, 20);
+                canvasContext.strokeStyle = targetCanvas.color;
+                canvasContext.lineWidth = 2;
+                canvasContext.fillStyle = 'rgba(255,255,255,.5)';
+                canvasContext.fillRect(0, 0, 90, 30)
+                canvasContext.font = "normal 14pt Arial";
+                canvasContext.fillStyle = targetCanvas.color;
+                canvasContext.fillText(targetCanvas.context.fps + " fps", 5, 20);
                 targetCanvas.lastTime = targetCanvas.startTime;
             }
 
-            for (let i = 0; i < e.data.features.length; i++) {
-                let rect = e.data.features[i];
-                drawCharacter(secondaryCtx, rect, characterPic)
+            for (let i = 0; i < latestFeatures.length; i++) {
+                let rect = latestFeatures[i];
+                drawCharacter(canvasContext, rect, characterPic)
             }
         }
-        targetCanvas.context.drawImage(secondaryCanvas, 0, 0, targetCanvas.canvas.width, targetCanvas.canvas.height);
+
+        canvasContext.restore();
     }
 
     function drawCharacter(canvasContext, rect, img) {
