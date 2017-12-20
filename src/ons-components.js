@@ -1,5 +1,6 @@
 export { default as VOnsBackButton } from 'vue-onsenui/esm/components/VOnsBackButton'
 export { default as VOnsButton } from 'vue-onsenui/esm/components/VOnsButton'
+export { default as VOnsCheckbox } from 'vue-onsenui/esm/components/VOnsCheckbox'
 export { default as VOnsFab } from 'vue-onsenui/esm/components/VOnsFab'
 export { default as VOnsIcon } from 'vue-onsenui/esm/components/VOnsIcon'
 export { default as VOnsNavigator } from 'vue-onsenui/esm/components/VOnsNavigator'
