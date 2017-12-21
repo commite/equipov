@@ -1,5 +1,3 @@
-var debounce = require('debounce');
-
 export const initVideo = (debug) => {
 
     let wasmWorker = new Worker('wasm-worker.js');
