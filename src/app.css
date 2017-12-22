@@ -43,3 +43,11 @@
 ons-button.secondary {
   background-color: #222831;
 }
+
+ons-fab.fail {
+  background-color: #EB5757;
+}
+
+ons-fab.success {
+  background-color: #44C97D;
+}

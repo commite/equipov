@@ -16,17 +16,19 @@
 
       <v-ons-fab
         position="bottom left"
-        @click="wrongQuestion">
-        <v-ons-icon icon="md-minus"></v-ons-icon>
+        @click="wrongQuestion"
+        class="fail">
+        <v-ons-icon icon="md-block-alt"></v-ons-icon>
       </v-ons-fab>
       <v-ons-fab
         position="bottom right"
-        @click="addQuestion">
+        @click="addQuestion"
+        class="success">
         <v-ons-icon icon="md-check"></v-ons-icon>
       </v-ons-fab>
 
       <div class="bottom-row">
-        <ons-button class="guessed-button" @click="guessed">Guessed</ons-button>
+        <ons-button class="guessed-button secondary" @click="guessed">Discovered?</ons-button>
       </div>
     </div>
   </v-ons-page>
