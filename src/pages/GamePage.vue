@@ -15,10 +15,20 @@
       <faces
         :characterName="currentPlayer.character.name"
         :characterPic="currentPlayer.character.pic"></faces>
-      <div class="button-container">
-        <ons-button @click="wrongQuestion">Wrong</ons-button>
-        <ons-button @click="guessed">Guessed</ons-button>
-        <ons-button @click="addQuestion">Right</ons-button>
+
+      <v-ons-fab
+        position="bottom left"
+        @click="wrongQuestion">
+        <v-ons-icon icon="md-minus"></v-ons-icon>
+      </v-ons-fab>
+      <v-ons-fab
+        position="bottom right"
+        @click="addQuestion">
+        <v-ons-icon icon="md-check"></v-ons-icon>
+      </v-ons-fab>
+
+      <div class="guessed">
+        <ons-button class="guessed-button" @click="guessed">Guessed</ons-button>
       </div>
     </div>
   </v-ons-page>
@@ -107,11 +117,15 @@ export default {
   margin-top: 30px;
 }
 
-.button-container {
+.guessed {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
+
+  top: auto;
+  bottom: 28px;
+  position: absolute;
 }
 </style>
