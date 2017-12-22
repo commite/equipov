@@ -12,7 +12,7 @@ export const randomCharacter = (database) => {
 // Marvel Characters API. See https://developer.marvel.com/
 const MARVEL_API_KEY = 'f7ad96ce1e1fa51154333f64b939b20e';
 const MARVEL_PRIV_API_KEY = '2419d9e0a4235cfe25eab5c6b177b3b658ac4b53';
-const API_URL = 'http://gateway.marvel.com/v1/public';
+const API_URL = 'https://gateway.marvel.com/v1/public';
 
 let ts = 1;
 
