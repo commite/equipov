@@ -53,12 +53,11 @@
         <v-ons-icon icon="md-plus"></v-ons-icon> add one
       </v-ons-button>
     </div>
-
-    <v-ons-fab
-      position="bottom right"
-      @click="goToNewGame">
-      <v-ons-icon icon="md-plus"></v-ons-icon>
-    </v-ons-fab>
+    <div class="bottom-row">
+      <v-ons-button modifier="large" @click="goToNewGame">
+        New game
+      </v-ons-button>
+    </div>
   </v-ons-page>
 </template>
 

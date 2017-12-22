@@ -27,7 +27,7 @@
         <v-ons-icon icon="md-check"></v-ons-icon>
       </v-ons-fab>
 
-      <div class="guessed">
+      <div class="bottom-row">
         <ons-button class="guessed-button" @click="guessed">Guessed</ons-button>
       </div>
     </div>
@@ -115,17 +115,5 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
-}
-
-.guessed {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-
-  top: auto;
-  bottom: 28px;
-  position: absolute;
 }
 </style>

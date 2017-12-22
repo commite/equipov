@@ -9,3 +9,15 @@
 .ons-icon.left {
   margin-right: 20px;
 }
+
+.bottom-row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+
+  top: auto;
+  bottom: 28px;
+  position: absolute;
+}
