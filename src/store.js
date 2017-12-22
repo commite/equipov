@@ -176,7 +176,14 @@ export default new Vuex.Store({
         },
         setcurrentgame({ commit, state }, game) {
           commit('SET_CURRENT_GAME', game);
-        }
+        },
+        questionsuccess({ commit, state }, game) {
+          this._vm.$ons.notification.toast({
+            message: `Hooray! Go to next question`,
+            buttonLabel: 'Dismiss',
+            timeout: 5000
+          });
+        },
       },
       getters: {
         getCurrentGame: state => state.currentGame

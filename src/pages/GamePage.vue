@@ -1,5 +1,5 @@
 <template>
-  <v-ons-page>
+  <v-ons-page modifier="transparent">
     <v-ons-toolbar>
       <div class="left">
         <v-ons-back-button>Back</v-ons-back-button>
@@ -8,7 +8,7 @@
         Turn preparation
       </div>
       <div class="center" v-else>
-        Who is {{ currentPlayer.name }}?
+        {{ currentPlayer.character.name }}
       </div>
     </v-ons-toolbar>
     <div class="turn-layer" v-show="!turnStarted">
@@ -32,7 +32,7 @@
       </v-ons-fab>
       <v-ons-fab
         position="bottom right"
-        @click="addQuestion"
+        @click="nextQuestion"
         class="success">
         <v-ons-icon icon="md-check"></v-ons-icon>
       </v-ons-fab>
@@ -69,10 +69,12 @@ export default {
     },
   },
   methods: {
-    addQuestion() {
+    nextQuestion() {
       if(!this.currentPlayer.questions)
         this.currentPlayer.questions = 0;
       this.currentPlayer.questions += 1;
+      this.$store.dispatch('game/questionsuccess');
+
       this.updateCurrentGame();
       this.$forceUpdate();
     },
@@ -118,7 +120,7 @@ export default {
       this.updateCurrentGame();
     },
     wrongQuestion() {
-      this.addQuestion();
+      this.nextQuestion();
       this.nextTurn();
     }
   },
@@ -146,6 +148,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: #222831;
 }
 .player-name {
   font-size: 60px;

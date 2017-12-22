@@ -40,7 +40,7 @@ export const initVideo = (debug) => {
     canvases.wasm.color = 'rgba(255, 0, 0, 1)';
 
     canvases.width = document.body.clientWidth;
-    canvases.height = document.body.clientHeight;
+    canvases.height = document.body.clientWidth * 1.3333333333333;
     canvases.scale = 2;
 
     canvases.wasm.canvas = document.getElementById('wasm');
