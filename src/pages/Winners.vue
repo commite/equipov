@@ -23,7 +23,7 @@
         </div>
         <div class="right">
           <div class="list-item__subtitle">
-            {{ player.questions }}
+            {{ player.questions || 0 }}
           </div>
         </div>
       </v-ons-list-item>
@@ -40,7 +40,7 @@
         </div>
         <div class="right">
           <div class="list-item__subtitle">
-            {{ player.questions }}
+            {{ player.questions || 0 }}
           </div>
         </div>
       </v-ons-list-item>
