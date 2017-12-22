@@ -19,7 +19,7 @@ const router = new Router({
           component: GamePage,
         },
         {
-          path: 'addlocation',
+          path: 'newgame',
           name: 'AddGame',
           component: AddGamePage,
         },
