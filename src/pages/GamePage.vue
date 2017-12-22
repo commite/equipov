@@ -1,10 +1,5 @@
 <template>
   <v-ons-page>
-    <v-ons-toolbar>
-      <!-- <div class="left">
-        <v-ons-back-button>Back</v-ons-back-button>
-      </div> -->
-    </v-ons-toolbar>
     <div class="turn-layer" v-show="!turnStarted">
       <div class="center">{{ currentPlayer.name }} turn</div>
       <div class="center"><ons-button @click="startTurn()">Start!</ons-button></div>
@@ -124,7 +119,6 @@ export default {
 
 <style scoped>
 .turn-layer {
-  background-color: pink;
   height: 100%;
   width: 100%;
 }
