@@ -54,8 +54,8 @@
       </v-ons-button>
     </div>
     <div class="bottom-row">
-      <v-ons-button modifier="large" @click="continueGame" v-if="getCurrentGame() && getCurrentGame().game">
-        Continue game
+      <v-ons-button modifier="large" @click="resumeGame" v-if="getCurrentGame() && getCurrentGame().game">
+        Resume game
       </v-ons-button>
       <v-ons-button modifier="large" @click="goToNewGame">
         New game
@@ -100,7 +100,7 @@ export default {
        name: 'AddGame',
       });
     },
-    continueGame() {
+    resumeGame() {
       let currentGame = this.getCurrentGame();
       this.$router.push({
         name: 'Game',
