@@ -10,6 +10,7 @@ export { default as VOnsListTitle } from 'vue-onsenui/esm/components/VOnsListTit
 export { default as VOnsPage } from 'vue-onsenui/esm/components/VOnsPage'
 export { default as VOnsProgressBar } from 'vue-onsenui/esm/components/VOnsProgressBar'
 export { default as VOnsPullHook } from 'vue-onsenui/esm/components/VOnsPullHook'
+export { default as VOnsRadio } from 'vue-onsenui/esm/components/VOnsRadio'
 export { default as VOnsSearchInput } from 'vue-onsenui/esm/components/VOnsSearchInput'
 export { default as VOnsSplitter } from 'vue-onsenui/esm/components/VOnsSplitter'
 export { default as VOnsSplitterContent } from 'vue-onsenui/esm/components/VOnsSplitterContent'

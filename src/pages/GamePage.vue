@@ -11,10 +11,10 @@
     </div>
     <div class="container" v-show="turnStarted">
       <div class="center">{{ currentPlayer.questions || 0 }}</div>
-      <div class="center">{{ currentPlayer.name }} turn</div>
+      <div class="center">{{ currentPlayer.name }} turn guessing {{ currentPlayer.character.name }}</div>
       <faces
         :characterName="currentPlayer.character.name"
-        :characterPic="currentPlayer.character.pic"></faces>
+        :characterPic="currentPlayer.character.picture"></faces>
 
       <v-ons-fab
         position="bottom left"
