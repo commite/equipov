@@ -1,5 +1,16 @@
 <template>
   <v-ons-page>
+    <v-ons-toolbar>
+      <div class="left">
+        <v-ons-back-button>Back</v-ons-back-button>
+      </div>
+      <div class="center" v-if="!turnStarted" >
+        Turn preparation
+      </div>
+      <div class="center" v-else>
+        Who is {{ currentPlayer.name }}?
+      </div>
+    </v-ons-toolbar>
     <div class="turn-layer" v-show="!turnStarted">
       <div>Next to play...</div>
       <div class="player-name">
@@ -8,9 +19,8 @@
       <div class="center"><ons-button @click="startTurn()">Start!</ons-button></div>
     </div>
     <div class="container" v-show="turnStarted">
-      <div class="center">{{ currentPlayer.questions || 0 }}</div>
-      <div class="center">{{ currentPlayer.name }} turn guessing {{ currentPlayer.character.name }}</div>
       <faces
+        :playerName="currentPlayer.name"
         :characterName="currentPlayer.character.name"
         :characterPic="currentPlayer.character.picture"></faces>
 
@@ -136,7 +146,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
 }
 .player-name {
   font-size: 60px;

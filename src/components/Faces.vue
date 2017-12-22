@@ -8,7 +8,7 @@
 
       <canvas class="display-canvas" id="wasm"></canvas>
       <canvas style="position:fixed; left:-1000px; visibility: hidden" id="dummy"></canvas>
-      <video style="display:none" width="320" height="240" autoplay id="videoElement"></video>
+      <video style="display:none" autoplay id="videoElement"></video>
     </div>
   </div>
 </template>
@@ -19,6 +19,7 @@ import { initVideo } from '~/faces.js';
 export default {
   name: 'faces',
   props: {
+    playerName: String,
     characterPic: String,
     characterName: String,
     debug: {
@@ -37,14 +38,19 @@ export default {
 <style scoped>
 .game {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .canvas-container {
   position: relative;
-  min-width: 300px;
-  min-height: 300px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.player-name {
+  z-index: 200;
 }
 .display-canvas {
   position: absolute;

@@ -39,8 +39,8 @@ export const initVideo = (debug) => {
     canvases.wasm.fpsArr = [];
     canvases.wasm.color = 'rgba(255, 0, 0, 1)';
 
-    canvases.width = 320;
-    canvases.height = 240;
+    canvases.width = document.body.clientWidth;
+    canvases.height = document.body.clientHeight;
     canvases.scale = 2;
 
     canvases.wasm.canvas = document.getElementById('wasm');
