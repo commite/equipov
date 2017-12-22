@@ -19,7 +19,7 @@ let ts = 1;
 const marvelApiCall = (path) => {
 
   const hash = md5(ts + MARVEL_PRIV_API_KEY + MARVEL_API_KEY);
-  const url = `${API_URL}/${path}?ts=${ts}&apikey=${MARVEL_API_KEY}&hash=${hash}`;
+  const url = `${API_URL}/${path}?ts=${ts}&apikey=${MARVEL_API_KEY}&hash=${hash}&limit=30`;
 
   // increment timestamp
   ts++;
@@ -43,13 +43,19 @@ const marvelApiCall = (path) => {
 const marvelRandomCharacter = () => {
   return marvelApiCall('characters')
   .then(data => {
-    const idx = Math.floor(Math.random() * data.count)
-    const character = data.results[idx];
-
-    return {
-      name: character.name,
-      picture: `${character.thumbnail.path}/standard_xlarge.jpg`,
-      details: character.urls[0].url,
+    let character;
+    let found = false;
+    // TODO: Make sure that some result has image
+    while (true) {
+      const idx = Math.floor(Math.random() * data.count)
+      character = data.results[idx];
+      if (character.thumbnail.path.indexOf('image_not_available') === -1) {
+        return {
+          name: character.name,
+          picture: `${character.thumbnail.path}/standard_xlarge.jpg`,
+          details: character.urls[0].url,
+        }
+      }
     }
   })
 }

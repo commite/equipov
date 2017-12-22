@@ -29,7 +29,10 @@
 </template>
 
 <script>
+import Promise from 'promise';
+
 import { mapState } from 'vuex';
+import { randomCharacter } from '~/api';
 
 export default {
   name: 'game',
@@ -49,36 +52,33 @@ export default {
       for(var i in this.candidatePlayers) {
         if(this.candidatePlayers[i].name == player.name) {
           this.candidatePlayers.splice(i, 1);
-          console.log(this.candidatePlayers);
           return;
         }
       }
       this.candidatePlayers.push(player);
     },
     calcCharacters() {
-      let availableCharacters = Object.keys(this.characters);
-      let idx;
-      this.candidatePlayers.forEach((player) => {
-        idx = Math.floor(Math.random()*availableCharacters.length)
-        player.character = this.characters[availableCharacters[idx]];
-        availableCharacters.splice(idx, 1);
-      });
+      return Promise.all(this.candidatePlayers.map((player) => {
+        return randomCharacter('marvel').then((character) => {
+          player.character = character;
+        });
+      }));
     },
     startGame() {
-      this.calcCharacters();
-      const game = {
-        'players': this.candidatePlayers
-      }
+      this.calcCharacters().then(() =>  {
+        const game = {
+          'players': this.candidatePlayers
+        }
 
-      // TODO: Implement
-      // this.$store.dispatch(
-      //   'game/startgame', game);
+        // TODO: Implement
+        // this.$store.dispatch(
+        //   'game/startgame', game);
 
-      this.$router.push({
-        name: 'Game',
-        params: {game: game},
+        this.$router.push({
+          name: 'Game',
+          params: {game: game},
+        });
       });
-
     }
   },
 }
