@@ -5,11 +5,11 @@
         <v-ons-back-button>Back</v-ons-back-button>
       </div> -->
     </v-ons-toolbar>
-    <div class="turn-layer" v-if="!turnStarted">
+    <div class="turn-layer" v-show="!turnStarted">
       <div class="center">{{ currentPlayer.name }} turn</div>
       <div class="center"><ons-button @click="startTurn()">Start!</ons-button></div>
     </div>
-    <div class="container" v-else>
+    <div class="container" v-show="turnStarted">
       <div class="center">{{ currentPlayer.questions || 0 }}</div>
       <div class="center">{{ currentPlayer.name }} turn</div>
       <faces
