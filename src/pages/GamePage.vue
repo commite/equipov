@@ -6,15 +6,15 @@
       </div> -->
     </v-ons-toolbar>
     <div class="turn-layer" v-if="!turnStarted">
-      <div class="center">{{ getCurrentPlayer().name }} turn</div>
+      <div class="center">{{ currentPlayer.name }} turn</div>
       <div class="center"><ons-button @click="startTurn()">Start!</ons-button></div>
     </div>
     <div class="container" v-else>
-      <div class="center">{{ getCurrentPlayer().questions || 0 }}</div>
-      <div class="center">{{ getCurrentPlayer().name }} turn</div>
+      <div class="center">{{ currentPlayer.questions || 0 }}</div>
+      <div class="center">{{ currentPlayer.name }} turn</div>
       <faces
-        :characterName="getCurrentPlayer().character.name"
-        :characterPic="getCurrentPlayer().character.pic"></faces>
+        :characterName="currentPlayer.character.name"
+        :characterPic="currentPlayer.character.pic"></faces>
       <div class="button-container">
         <ons-button @click="wrongQuestion">Wrong</ons-button>
         <ons-button @click="guessed">Guessed</ons-button>
@@ -44,17 +44,17 @@ export default {
       set(game) {
        this.$route.params.game = game;
       }
-    }
+    },
+    currentPlayer() {
+      return this.game.players[this.currentPlayerIdx];
+    },
   },
   methods: {
     addQuestion() {
-      if(!this.getCurrentPlayer().questions)
-        this.getCurrentPlayer().questions = 0;
-      this.getCurrentPlayer().questions += 1;
+      if(!this.currentPlayer.questions)
+        this.currentPlayer.questions = 0;
+      this.currentPlayer.questions += 1;
       this.$forceUpdate();
-    },
-    getCurrentPlayer() {
-      return this.game.players[this.currentPlayerIdx];
     },
     endGame() {
       this.$router.push({
