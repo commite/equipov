@@ -54,6 +54,9 @@
       </v-ons-button>
     </div>
     <div class="bottom-row">
+      <v-ons-button modifier="large" @click="continueGame" v-if="getCurrentGame() && getCurrentGame().game">
+        Continue game
+      </v-ons-button>
       <v-ons-button modifier="large" @click="goToNewGame">
         New game
       </v-ons-button>
@@ -75,10 +78,13 @@ export default {
     ...mapState({
       showAddMessage: state => state.game.showAddMessage,
       players: state => state.game.players,
-      hasPlayers: state => Object.keys(state.game.players).length > 0,
+      hasPlayers: state => Object.keys(state.game.players).length > 0
     }),
   },
   methods: {
+    getCurrentGame() {
+      return this.$store.getters['game/getCurrentGame'];
+    },
     goToPlayer(player) {
       // TODO: implement
     },
@@ -93,14 +99,27 @@ export default {
        name: 'AddGame',
       });
     },
+    continueGame() {
+      let currentGame = this.getCurrentGame();
+      this.$router.push({
+        name: 'Game',
+        params: {
+            game: currentGame.game,
+            currentPlayerIdx: currentGame.currentPlayerIdx,
+            turnStarted: currentGame.turnStarted,
+            winners: currentGame.winnners
+          },
+      });
+    },
     onRefresh(done) {
+            console.log(this.currentGame);
       // refresh ranking
       this.$store.dispatch('ranking/refresh');
       // simulate a 1 second timeout to hide the pull hook
       // this should be wait for all the rankings
       setTimeout(() => done(), 1000);
     },
-  },
+  }
 }
 </script>
 

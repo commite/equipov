@@ -14,6 +14,7 @@ const vuexLocalStorage = new VuexPersist({
     return {
       game: {
         characters: state.game.characters,
+        currentGame: state.game.currentGame
       },
     };
   },
@@ -70,6 +71,11 @@ export default new Vuex.Store({
     game: {
       namespaced: true,
       state: {
+        currentGame: {
+          game: undefined,
+          currentPlayerIdx: 0,
+          winners: []
+        },
         players: {
           1: {
             name: 'Dander',
@@ -144,6 +150,9 @@ export default new Vuex.Store({
           // refreshed
           Vue.delete(state.players, id);
         },
+        SET_CURRENT_GAME (state, game) {
+          state.currentGame = game;
+        },
         SHOW_ADD_MESSAGE (state) {
           state.showAddMessage = true;
         }
@@ -183,7 +192,13 @@ export default new Vuex.Store({
             // TODO: implement
           });
         },
+        setcurrentgame({ commit, state }, game) {
+          commit('SET_CURRENT_GAME', game);
+        }
       },
+      getters: {
+        getCurrentGame: state => state.currentGame
+      }
     }
   },
   plugins: [vuexLocalStorage.plugin],
