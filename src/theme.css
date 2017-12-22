@@ -13,7 +13,7 @@
   --background-color: #f9f9f9;
   --text-color: #1f1f21;
   --sub-text-color: #999;
-  --highlight-color: #13bde2;
+  --highlight-color: #F96D00;
   --second-highlight-color: #25a6d9;
   --border-color: #ccc;
   --button-background-color: var(--highlight-color);
@@ -44,7 +44,7 @@
   --modal-text-color: #fff;
   --alert-dialog-background-color: #f4f4f4;
   --alert-dialog-text-color: #1f1f21;
-  --alert-dialog-button-color: #13bde2;
+  --alert-dialog-button-color: #F96D00;
   --alert-dialog-separator-color: #ddd;
   --dialog-background-color: #f4f4f4;
   --popover-background-color: white;
@@ -77,17 +77,17 @@
   --material-radio-button-active-color: #F96D00;
   --material-radio-button-inactive-color: #717171;
   --material-text-input-text-color: #212121;
-  --material-text-input-active-color: #13bde2;
+  --material-text-input-active-color: #F96D00;
   --material-text-input-inactive-color: #afafaf;
   --material-dialog-background-color: #ffffff;
   --material-alert-dialog-background-color: #ffffff;
   --material-alert-dialog-title-color: #212121;
   --material-alert-dialog-content-color: #727272;
-  --material-alert-dialog-button-color: #13bde2;
+  --material-alert-dialog-button-color: #F96D00;
   --material-progress-bar-primary-color: #F96D00;
   --material-progress-bar-secondary-color: #80cbc4;
   --material-progress-bar-background-color: #e0e0e0;
-  --material-progress-circle-primary-color: #13bde2;
+  --material-progress-circle-primary-color: #F96D00;
   --material-progress-circle-secondary-color: #80cbc4;
   --material-progress-circle-background-color: transparent;
   --material-tabbar-background-color: #F96D00;
@@ -95,7 +95,7 @@
   --material-tabbar-highlight-text-color: #ffffff;
   --material-tabbar-highlight-color: #26a69a;
   --material-fab-text-color: #ffffff;
-  --material-fab-background-color: #13bde2;
+  --material-fab-background-color: #F96D00;
   --material-fab-active-background-color: rgba(255, 255, 255, 0.75);
   --material-toast-background-color: rgba(0, 0, 0, 0.7);
   --material-toast-button-text-color: yellow;

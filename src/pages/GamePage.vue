@@ -10,6 +10,11 @@
       <div class="center" v-else>
         {{ currentPlayer.character.name }}
       </div>
+      <div class="right">
+        <v-ons-toolbar-button @click="goToDetails">
+          <v-ons-icon icon="md-info"></v-ons-icon>
+        </v-ons-toolbar-button>
+      </div>
     </v-ons-toolbar>
     <div class="turn-layer" v-show="!turnStarted">
       <div>Next to play...</div>
@@ -122,6 +127,9 @@ export default {
     wrongQuestion() {
       this.nextQuestion();
       this.nextTurn();
+    },
+    goToDetails() {
+      window.open(this.currentPlayer.character.details, '_blank');
     }
   },
   mounted() {
