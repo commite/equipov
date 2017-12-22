@@ -1,7 +1,10 @@
 <template>
   <v-ons-page>
     <div class="turn-layer" v-show="!turnStarted">
-      <div class="center">{{ currentPlayer.name }} turn</div>
+      <div>Next to play...</div>
+      <div class="player-name">
+        {{ currentPlayer.name }}
+      </div>
       <div class="center"><ons-button @click="startTurn()">Start!</ons-button></div>
     </div>
     <div class="container" v-show="turnStarted">
@@ -121,6 +124,10 @@ export default {
 .turn-layer {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .container {
@@ -128,5 +135,8 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+}
+.player-name {
+  font-size: 60px;
 }
 </style>
