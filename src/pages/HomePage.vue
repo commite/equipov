@@ -53,11 +53,17 @@
         <v-ons-icon icon="md-plus"></v-ons-icon> add one
       </v-ons-button>
     </div>
-    <div class="bottom-row">
-      <v-ons-button modifier="large" @click="resumeGame" v-if="getCurrentGame() && getCurrentGame().game">
+    <div class="buttons-pile">
+      <v-ons-button
+        modifier="large"
+        @click="resumeGame"
+        v-if="getCurrentGame() && getCurrentGame().game"
+        class="secondary">
         Resume game
       </v-ons-button>
-      <v-ons-button modifier="large" @click="goToNewGame">
+      <v-ons-button
+        modifier="large"
+        @click="goToNewGame">
         New game
       </v-ons-button>
     </div>

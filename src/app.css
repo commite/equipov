@@ -21,3 +21,25 @@
   bottom: 28px;
   position: absolute;
 }
+
+.buttons-pile {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  top: auto;
+  width:  90%;
+  bottom: 28px;
+  position: absolute;
+}
+
+.buttons-pile ons-button {
+  margin: 10px 20px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  padding-top: 8px;
+}
+
+ons-button.secondary {
+  background-color: #222831;
+}
