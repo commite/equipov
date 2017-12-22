@@ -107,7 +107,6 @@ export default {
         params: {
             game: currentGame.game,
             currentPlayerIdx: currentGame.currentPlayerIdx,
-            turnStarted: currentGame.turnStarted,
             winners: currentGame.winnners
           },
       });

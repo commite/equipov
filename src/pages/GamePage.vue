@@ -60,10 +60,10 @@ export default {
   },
   methods: {
     addQuestion() {
-      this.updateCurrentGame();
       if(!this.currentPlayer.questions)
         this.currentPlayer.questions = 0;
       this.currentPlayer.questions += 1;
+      this.updateCurrentGame();
       this.$forceUpdate();
     },
     endGame() {
@@ -115,8 +115,6 @@ export default {
   mounted() {
     if(this.$route.params.currentPlayerIdx)
       this.currentPlayerIdx = this.$route.params.currentPlayerIdx;
-    if(this.$route.params.turnStarted)
-      this.turnStarted = this.$route.params.turnStarted;
     if(this.$route.params.winners)
       this.winners = this.$route.params.winners;
     this.updateCurrentGame();
