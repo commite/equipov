@@ -93,36 +93,6 @@ export default new Vuex.Store({
           },
         },
         games: {},
-        characters: {
-          1: {
-            name: 'Carmen De Mairena',
-            pic: 'assets/characters/carmen_de_mairena.png'
-          },
-          2: {
-            name: 'Albert Rivera',
-            pic: 'assets/characters/albert_rivera.png'
-          },
-          3: {
-            name: 'Alejandro Sanz',
-            pic: 'assets/characters/alejandro_sanz.png'
-          },
-          4: {
-            name: 'Espinete',
-            pic: 'assets/characters/espinete.png'
-          },
-          5: {
-            name: 'Mafalda',
-            pic: 'assets/characters/mafalda.png'
-          },
-          6: {
-            name: 'Alvaro Ojeda',
-            pic: 'assets/characters/ojeda.png'
-          },
-          7: {
-            name: 'Sr Barragan',
-            pic: 'assets/characters/sr_barragan.png'
-          }
-        },
         isFetching: false,
         showAddMessage: false,
       },

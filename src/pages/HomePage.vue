@@ -63,6 +63,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { randomCharacter } from '~/api';
 
 export default {
   name: 'home',
