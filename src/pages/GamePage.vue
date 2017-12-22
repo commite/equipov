@@ -5,11 +5,11 @@
         <v-ons-back-button>Back</v-ons-back-button>
       </div> -->
     </v-ons-toolbar>
-    <div class="turn-layer" v-if="!turnStarted">
+    <div class="turn-layer" v-show="!turnStarted">
       <div class="center">{{ currentPlayer.name }} turn</div>
       <div class="center"><ons-button @click="startTurn()">Start!</ons-button></div>
     </div>
-    <div class="container" v-else>
+    <div class="container" v-show="turnStarted">
       <div class="center">{{ currentPlayer.questions || 0 }}</div>
       <div class="center">{{ currentPlayer.name }} turn guessing {{ currentPlayer.character.name }}</div>
       <faces
@@ -41,7 +41,6 @@ export default {
   data () {
     return {
       currentPlayerIdx: 0,
-      showGuessed: false,
       turnStarted: false,
       winners: []
     };
@@ -64,9 +63,11 @@ export default {
       if(!this.currentPlayer.questions)
         this.currentPlayer.questions = 0;
       this.currentPlayer.questions += 1;
+      this.updateCurrentGame();
       this.$forceUpdate();
     },
     endGame() {
+      this.$store.dispatch('game/resetcurrentgame');
       this.$router.push({
         name: 'Winners',
         params: {
@@ -83,6 +84,8 @@ export default {
         this.currentPlayerIdx = 0;
       if(this.winners.length == 3 || this.game.players.length == 0)
         this.endGame();
+      this.updateCurrentGame();
+
     },
     nextTurn() {
       this.turnStarted = false;
@@ -90,15 +93,31 @@ export default {
         this.currentPlayerIdx = 0;
       else
         this.currentPlayerIdx += 1;
+      this.updateCurrentGame();
       this.$forceUpdate();
+    },
+    updateCurrentGame() {
+      this.$store.dispatch('game/setcurrentgame', {
+        game: this.game,
+        currentPlayerIdx: this.currentPlayerIdx,
+        turnStarted: this.turnStarted
+      })
     },
     startTurn() {
       this.turnStarted = true;
+      this.updateCurrentGame();
     },
     wrongQuestion() {
       this.addQuestion();
       this.nextTurn();
     }
+  },
+  mounted() {
+    if(this.$route.params.currentPlayerIdx)
+      this.currentPlayerIdx = this.$route.params.currentPlayerIdx;
+    if(this.$route.params.winners)
+      this.winners = this.$route.params.winners;
+    this.updateCurrentGame();
   }
 }
 </script>
