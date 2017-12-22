@@ -95,6 +95,7 @@ export default {
       // });
     },
     goToNewGame() {
+      this.$store.dispatch('game/resetcurrentgame');
       this.$router.push({
        name: 'AddGame',
       });
@@ -112,7 +113,6 @@ export default {
       });
     },
     onRefresh(done) {
-            console.log(this.currentGame);
       // refresh ranking
       this.$store.dispatch('ranking/refresh');
       // simulate a 1 second timeout to hide the pull hook

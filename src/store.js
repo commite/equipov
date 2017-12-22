@@ -74,6 +74,7 @@ export default new Vuex.Store({
         currentGame: {
           game: undefined,
           currentPlayerIdx: 0,
+          turnStarted: false,
           winners: []
         },
         players: {
@@ -150,6 +151,14 @@ export default new Vuex.Store({
           // refreshed
           Vue.delete(state.players, id);
         },
+        RESET_CURRENT_GAME (state) {
+          state.currentGame = {
+              game: undefined,
+              currentPlayerIdx: 0,
+              turnStarted: false,
+              winners: []
+          };
+        },
         SET_CURRENT_GAME (state, game) {
           state.currentGame = game;
         },
@@ -191,6 +200,9 @@ export default new Vuex.Store({
           Object.entries(state.players).forEach(([name, data]) => {
             // TODO: implement
           });
+        },
+        resetcurrentgame({ commit, state }) {
+          commit('RESET_CURRENT_GAME');
         },
         setcurrentgame({ commit, state }, game) {
           commit('SET_CURRENT_GAME', game);

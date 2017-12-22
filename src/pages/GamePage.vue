@@ -67,6 +67,7 @@ export default {
       this.$forceUpdate();
     },
     endGame() {
+      this.$store.dispatch('game/resetcurrentgame');
       this.$router.push({
         name: 'Winners',
         params: {
