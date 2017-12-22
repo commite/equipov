@@ -6,25 +6,46 @@
       </div>
       <div class="center">Add Game</div>
     </v-ons-toolbar>
-    <v-ons-list>
-      <v-ons-list-item tappable
-        v-for="player in players"
-        :key="player.id">
-        <label class="left">
-          <ons-checkbox :input-id="player.id" @click="addPlayerToGame(player)"></ons-checkbox>
-        </label>
-        <div class="center">
-          <label :for="player.id" class="list-item__title">
-            {{ player.name }}
+    <div class="container">
+      <v-ons-list class="players">
+        <v-ons-list-item tappable
+          v-for="player in players"
+          :key="player.id">
+          <label class="left">
+            <ons-checkbox :input-id="player.id" @click="addPlayerToGame(player)"></ons-checkbox>
           </label>
-        </div>
-      </v-ons-list-item>
-    </v-ons-list>
-    <v-ons-fab
-      position="bottom right"
-      @click="startGame">
-      <v-ons-icon icon="md-arrow-right"></v-ons-icon>
-    </v-ons-fab>
+          <div class="center">
+            <label :for="player.id" class="list-item__title">
+              {{ player.name }}
+            </label>
+          </div>
+        </v-ons-list-item>
+      </v-ons-list>
+      <div class="databases">
+        <v-ons-list-header>
+          Choose characters database
+        </v-ons-list-header>
+        <v-ons-list>
+          <v-ons-list-item v-for="(db, $index) in databases" :key="$index" tappable>
+            <label class="left">
+              <v-ons-radio
+                :input-id="'radio-' + $index"
+                :value="db"
+                v-model="selectedDatabase">
+              </v-ons-radio>
+            </label>
+            <label class="center" :for="'checkbox-' + $index">
+              {{ db }}
+            </label>
+          </v-ons-list-item>
+        </v-ons-list>
+      </div>
+      <v-ons-fab
+        position="bottom right"
+        @click="startGame">
+        <v-ons-icon icon="md-arrow-right"></v-ons-icon>
+      </v-ons-fab>
+    </div>
   </v-ons-page>
 </template>
 
@@ -38,7 +59,9 @@ export default {
   name: 'game',
   data () {
     return {
+      databases: ['marvel', 'generic'],
       candidatePlayers: [],
+      selectedDatabase: 'generic',
     };
   },
   computed: {
@@ -59,7 +82,7 @@ export default {
     },
     calcCharacters() {
       return Promise.all(this.candidatePlayers.map((player) => {
-        return randomCharacter('marvel').then((character) => {
+        return randomCharacter(this.selectedDatabase).then((character) => {
           player.character = character;
         });
       }));
@@ -86,9 +109,9 @@ export default {
 
 <style scoped>
   .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 30px;
+    padding: 10px;
+  }
+  .databases {
+    margin-top: 20px;
   }
 </style>
